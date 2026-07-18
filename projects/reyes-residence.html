@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- GUIDE: update the title per project -->
+  <title>[Family Name] Residence — Solar Solutions Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+     DESIGN TOKENS — sourced directly from DESIGN.md
+     Adapted to client's logo colors (Solar Navy & Solar Gold)
+     ========================================================= */
+    :root {
+      /* Theme colors */
+      --color-accent: #F0B429;      /* Solar Gold — scarce brand accent, CTAs only */
+      --color-primary: #12293B;     /* Solar Navy — structural primary */
+      --on-primary: #ffffff;
+      --on-accent: #12293B;
+      --ink: #161616;               /* Charcoal */
+      --ink-muted: #525252;         /* Charcoal Muted */
+      --ink-subtle: #8c8c8c;        /* Charcoal Subtle */
+      --canvas: #ffffff;            /* White */
+      --surface-1: #f4f4f4;         /* Carbon grey 10 */
+      --surface-2: #e0e0e0;         /* Carbon grey 20 */
+      --inverse-canvas: #12293B;    /* Navy footer */
+      --inverse-surface-1: #1c3a52; /* Footer dividers */
+      --inverse-ink: #ffffff;
+      --inverse-ink-muted: #c6d3db;
+      --hairline: #e0e0e0;
+      --hairline-strong: #12293B;
+      
+      /* Accent Interaction States */
+      --gold-hover: #f7c052;
+      --gold-active: #d39e24;
+      --navy-hover: #1c3a52;
+      --navy-active: #0d1e2b;
+
+      --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --radius: 0px;                /* Strict flat corners everywhere */
+      --section-pad: 96px;
+      --space-lg: 24px;
+      --space-xxl: 64px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.50;
+      letter-spacing: 0.16px;       /* Carbon signature letter-spacing */
+      color: var(--ink);
+      background: var(--canvas);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Nav (same as index.html) */
+    header.top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--canvas);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-mark img {
+      height: 100px;
+      display: block;
+    }
+
+    .back-link {
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-weight: 400;
+      letter-spacing: 0.16px;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-link:hover {
+      color: var(--color-primary);
+    }
+
+    /* Project header */
+    .project-header {
+      padding: 64px 0 40px;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.29;
+      letter-spacing: 0.16px;
+      color: var(--color-accent);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .project-header h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 300;
+      line-height: 1.17;
+      letter-spacing: -0.4px;
+      margin-bottom: 16px;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .meta-item .meta-label {
+      font-size: 12px;
+      color: var(--ink-subtle);
+      letter-spacing: 0.32px;
+      margin-bottom: 4px;
+    }
+
+    .meta-item .meta-value {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--color-primary);
+    }
+
+    /* Section scaffolding */
+    section {
+      padding: 72px 0;
+    }
+
+    .section-surface {
+      background: var(--surface-1);
+    }
+
+    .section-title {
+      margin-bottom: 32px;
+    }
+
+    .section-title .cat-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-primary);
+      display: block;
+      margin-bottom: 4px;
+      letter-spacing: 0.16px;
+    }
+
+    .section-title p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      letter-spacing: 0.16px;
+    }
+
+    /* Photo grid — reused for all three categories */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .photo-grid button {
+      all: unset;
+      cursor: pointer;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      background: var(--hairline);
+      border: 1px solid var(--hairline);
+      transition: border-color 0.2s ease;
+    }
+
+    .photo-grid button:hover {
+      border-color: var(--color-primary);
+    }
+
+    .photo-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-grid button:hover img {
+      transform: scale(1.04);
+    }
+
+    /* Video block */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--color-primary);
+      border: 1px solid var(--hairline);
+    }
+
+    .video-wrap iframe,
+    .video-wrap video {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 41, 59, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 40px;
+    }
+
+    .lightbox.is-open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 100%;
+      max-height: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 32px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      color: var(--color-accent);
+    }
+
+    /* CTA */
+    .project-cta {
+      background: var(--color-primary);
+      color: #fff;
+      text-align: center;
+      padding: var(--space-xxl) 32px;
+    }
+
+    .project-cta h2 {
+      font-weight: 300;
+      font-size: 28px;
+      margin-bottom: 24px;
+      letter-spacing: -0.2px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--font);
+      background: var(--color-accent);
+      color: var(--on-accent);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-hover);
+    }
+
+    .btn-primary:active {
+      background: var(--gold-active);
+    }
+
+    @media (max-width: 800px) {
+      .photo-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+      .project-header h1 {
+        font-size: 28px;
+      }
+      .project-meta {
+        gap: 16px;
+        flex-direction: column;
+      }
+      .project-meta > div {
+        width: 100%;
+        border-bottom: 1px solid var(--hairline);
+        padding-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top-nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="logo-mark">
+        <img src="../resources/images/logo-removebg.png" alt="Solar Solutions Pro">
+      </a>
+      <a href="../index.html" class="back-link">&larr; Back to Homepage</a>
+    </div>
+  </header>
+
+  <!-- ============ PROJECT HEADER ============ -->
+  <section class="project-header">
+    <div class="wrap">
+      <span class="eyebrow">Residential installation</span>
+      <h1>Reyes Residence</h1>
+      <p style="color:var(--ink-muted); max-width:600px;">The Reyes family wanted to eliminate rising energy costs and power their home sustainably. We designed and installed a high-efficiency system sized to their roof structure, achieving full energy independence.</p>
+      <div class="project-meta">
+        <div class="meta-item">
+          <div class="meta-label">Location</div>
+          <div class="meta-value">Phoenix, AZ</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">System size</div>
+          <div class="meta-value">8.4 kW</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Panels installed</div>
+          <div class="meta-value">24 panels</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Completed</div>
+          <div class="meta-value">November 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIDEO DOCUMENTATION ============ -->
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <span class="cat-label">Project walkthrough</span>
+      </div>
+      <div class="video-wrap">
+        <video controls loading="lazy" preload="metadata">
+          <source src="../resources/images/resources/e40b8da3-20fe-42e5-ad35-9f6b120e4fb9.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO DOCUMENTATION — FINISHED INSTALL ============ -->
+  <section class="section-surface">
+    <div class="wrap">
+      <div class="section-title">
+        <span class="cat-label">Finished installation</span>
+        <p>The completed solar power system on the Reyes family's roof.</p>
+      </div>
+      <div class="photo-grid" data-gallery="finished">
+        <button data-full="../resources/images/resources/7bb2c28b-e42d-4866-905a-c4611b2f211a.jpg">
+          <img loading="lazy" src="../resources/images/resources/7bb2c28b-e42d-4866-905a-c4611b2f211a.jpg" alt="Finished solar panel installation, wide view">
+        </button>
+        <button data-full="../resources/images/resources/8994bccc-4f1f-4c93-b139-354ec3774e58.jpg">
+          <img loading="lazy" src="../resources/images/resources/8994bccc-4f1f-4c93-b139-354ec3774e58.jpg" alt="Finished solar panel installation, close angle">
+        </button>
+        <button data-full="../resources/images/resources/41f57c3c-63bc-4a0d-aaf9-503854f0f312.jpg">
+          <img loading="lazy" src="../resources/images/resources/41f57c3c-63bc-4a0d-aaf9-503854f0f312.jpg" alt="Finished solar panel installation, roofline detail">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO DOCUMENTATION — MID-INSTALL / CREW AT WORK ============ -->
+  <section>
+    <div class="wrap">
+      <div class="section-title">
+        <span class="cat-label">Our crew at work</span>
+        <p>Behind the scenes during the layout and panel racking installation.</p>
+      </div>
+      <div class="photo-grid" data-gallery="install">
+        <button data-full="../resources/images/resources/1239011f-90bb-4b19-a438-96bd338aa765.jpg">
+          <img loading="lazy" src="../resources/images/resources/1239011f-90bb-4b19-a438-96bd338aa765.jpg" alt="Crew mounting solar panel racking">
+        </button>
+        <button data-full="../resources/images/resources/2c35e076-b91c-49ee-a4a7-064e4e9bd50a.jpg">
+          <img loading="lazy" src="../resources/images/resources/2c35e076-b91c-49ee-a4a7-064e4e9bd50a.jpg" alt="Crew wiring solar panels">
+        </button>
+        <button data-full="../resources/images/resources/b8fbc162-ab83-4d91-b84e-636684caf19d.jpg">
+          <img loading="lazy" src="../resources/images/resources/b8fbc162-ab83-4d91-b84e-636684caf19d.jpg" alt="Crew inspecting completed panel row">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PHOTO DOCUMENTATION — CUSTOMER INTERACTION ============ -->
+  <section class="section-surface">
+    <div class="wrap">
+      <div class="section-title">
+        <span class="cat-label">Working with the homeowner</span>
+        <p>Site walkthroughs and system activation check-ins with the Reyes family.</p>
+      </div>
+      <div class="photo-grid" data-gallery="customer">
+        <button data-full="../resources/images/resources/0b9c785e-b4b0-4644-a666-4441d560848d.jpg">
+          <img loading="lazy" src="../resources/images/resources/0b9c785e-b4b0-4644-a666-4441d560848d.jpg" alt="Crew reviewing system design with homeowner">
+        </button>
+        <button data-full="../resources/images/resources/2e70858d-06b1-4ac0-aa9e-f64cf1535a6d.jpg">
+          <img loading="lazy" src="../resources/images/resources/2e70858d-06b1-4ac0-aa9e-f64cf1535a6d.jpg" alt="Final walkthrough and power activation with homeowner">
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <div class="project-cta">
+    <h2>Want results like this for your home?</h2>
+    <a href="index.html#contact" class="btn-primary">Get your free quote</a>
+  </div>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img id="lightboxImg" src="" alt="">
+  </div>
+
+  <script>
+    // Simple lightbox: click any photo-grid button to view full-size.
+    // Works across all three gallery sections on this page.
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    document.querySelectorAll('.photo-grid button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fullSrc = btn.getAttribute('data-full');
+        const altText = btn.querySelector('img').alt;
+        lightboxImg.src = fullSrc;
+        lightboxImg.alt = altText;
+        lightbox.classList.add('is-open');
+      });
+    });
+
+    function closeLightbox() { lightbox.classList.remove('is-open'); lightboxImg.src = ''; }
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+
+</body>
+
+</html>

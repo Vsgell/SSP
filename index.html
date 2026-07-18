@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solar Solutions Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================================
+     DESIGN TOKENS — sourced directly from DESIGN.md
+     Adapted to client's logo colors (Solar Navy & Solar Gold)
+     ========================================================= */
+    :root {
+      /* Theme colors */
+      --color-accent: #F0B429;      /* Solar Gold — scarce brand accent, CTAs only */
+      --color-primary: #12293B;     /* Solar Navy — structural primary */
+      --on-primary: #ffffff;
+      --on-accent: #12293B;
+      --ink: #161616;               /* Charcoal */
+      --ink-muted: #525252;         /* Charcoal Muted */
+      --ink-subtle: #8c8c8c;        /* Charcoal Subtle */
+      --canvas: #ffffff;            /* White */
+      --surface-1: #f4f4f4;         /* Carbon grey 10 */
+      --surface-2: #e0e0e0;         /* Carbon grey 20 */
+      --inverse-canvas: #12293B;    /* Navy footer */
+      --inverse-surface-1: #1c3a52; /* Footer dividers */
+      --inverse-ink: #ffffff;
+      --inverse-ink-muted: #c6d3db;
+      --hairline: #e0e0e0;
+      --hairline-strong: #12293B;
+      
+      /* Accent Interaction States */
+      --gold-hover: #f7c052;
+      --gold-active: #d39e24;
+      --navy-hover: #1c3a52;
+      --navy-active: #0d1e2b;
+
+      --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      --radius: 0px;                /* Strict flat corners everywhere */
+      --section-pad: 96px;
+      --space-lg: 24px;
+      --space-xxl: 64px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.50;
+      letter-spacing: 0.16px;       /* Carbon signature letter-spacing */
+      color: var(--ink);
+      background: var(--canvas);
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Typography scale from DESIGN.md */
+    .display-xl {
+      font-size: clamp(42px, 8vw, 76px);
+      font-weight: 300;
+      line-height: 1.17;
+      letter-spacing: -0.5px;
+    }
+
+    .display-lg {
+      font-size: clamp(36px, 6vw, 60px);
+      font-weight: 300;
+      line-height: 1.17;
+      letter-spacing: -0.4px;
+    }
+
+    .display-md {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 300;
+      line-height: 1.20;
+      letter-spacing: 0px;
+    }
+
+    .headline {
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0px;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 400;
+      line-height: 1.33;
+      letter-spacing: 0px;
+    }
+
+    .subhead {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1.40;
+      letter-spacing: 0px;
+      color: var(--ink-muted);
+    }
+
+    .body-lg {
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.50;
+      letter-spacing: 0px;
+    }
+
+    .body-sm {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.29;
+      letter-spacing: 0.16px;
+    }
+
+    .body-emphasis {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.29;
+      letter-spacing: 0.16px;
+    }
+
+    .caption {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.33;
+      letter-spacing: 0.32px;
+    }
+
+    .eyebrow {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.29;
+      letter-spacing: 0.16px;
+      color: var(--color-accent);
+      display: inline-block;
+    }
+
+    /* =========================================================
+     UTILITY BAR — Slim gray bar at top of page
+     ========================================================= */
+    .utility-bar {
+      background: var(--surface-1);
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1.33;
+      letter-spacing: 0.32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .utility-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .utility-bar a {
+      color: var(--ink-muted);
+      transition: color 0.2s ease;
+    }
+
+    .utility-bar a:hover {
+      color: var(--color-primary);
+    }
+
+    /* =========================================================
+     BUTTONS
+     ========================================================= */
+    .btn {
+      display: inline-block;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.29;
+      letter-spacing: 0.16px;
+      padding: 12px 16px;           /* Carbon button padding */
+      border-radius: var(--radius); /* 0px */
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: var(--on-accent);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-hover);
+    }
+
+    .btn-primary:active {
+      background: var(--gold-active);
+    }
+
+    .btn-secondary {
+      background: var(--color-primary);
+      color: var(--on-primary);
+      border: 1px solid transparent;
+    }
+
+    .btn-secondary:hover {
+      background: var(--navy-hover);
+    }
+
+    .btn-secondary:active {
+      background: var(--navy-active);
+    }
+
+    .btn-tertiary {
+      background: var(--canvas);
+      color: var(--color-primary);
+      border: 1px solid var(--color-primary);
+    }
+
+    .btn-tertiary:hover {
+      background: var(--surface-1);
+    }
+
+    .btn-tertiary:active {
+      background: var(--surface-2);
+    }
+
+    /* =========================================================
+     NAV
+     ========================================================= */
+    header.top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--canvas);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;                 /* Compact premium header height */
+      gap: 16px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-mark img {
+      height: 100px;                 /* Sleek logo presentation */
+      display: block;
+    }
+
+    nav.links {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav.links a {
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-weight: 400;
+      letter-spacing: 0.16px;
+      transition: color 0.2s ease;
+    }
+
+    nav.links a:hover {
+      color: var(--color-primary);
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* =========================================================
+     HERO
+     ========================================================= */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-primary);
+      color: var(--inverse-ink);
+      padding: 120px 0 96px;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(18, 41, 59, 0.85), rgba(13, 30, 43, 0.92));
+      z-index: 1;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+
+    .hero h1 {
+      margin: 16px 0 20px;
+    }
+
+    .hero p {
+      color: var(--inverse-ink-muted);
+      margin-bottom: 32px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 64px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 32px;
+    }
+
+    .hero-stats .stat-num {
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--color-accent);
+      line-height: 1.15;
+    }
+
+    .hero-stats .stat-label {
+      font-size: 13px;
+      color: var(--inverse-ink-muted);
+      margin-top: 4px;
+    }
+
+    /* =========================================================
+     SECTION SCAFFOLDING — alternate canvas/surface-1 rhythm
+     ========================================================= */
+    section {
+      padding: var(--section-pad) 0;
+    }
+
+    .section-surface {
+      background: var(--surface-1);
+    }
+
+    .section-head {
+      max-width: 640px;
+      margin-bottom: 56px;
+    }
+
+    .section-head .eyebrow {
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .section-head h2 {
+      margin: 0 0 12px;
+    }
+
+    /* =========================================================
+     FEATURE CARDS
+     ========================================================= */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--canvas);
+      border: 1px solid var(--hairline);
+      padding: var(--space-lg);     /* 24px */
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .feature-card:hover {
+      background: var(--surface-1); /* Carbon surface hover */
+      border-color: var(--color-primary);
+    }
+
+    .feature-card .icon {
+      width: 48px;
+      height: 48px;
+      background: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      border-radius: var(--radius); /* 0px */
+    }
+
+    .feature-card .icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-accent);
+    }
+
+    .feature-card h3 {
+      margin-bottom: 12px;
+    }
+
+    .feature-card p {
+      color: var(--ink-muted);
+      font-size: 14px;
+      line-height: 1.43;
+    }
+
+    /* =========================================================
+     PROJECTS / CASE STUDY PREVIEW CAROUSEL
+     ========================================================= */
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      margin-top: 24px;
+      padding-bottom: 8px; /* space for focus rings */
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+      gap: 24px;
+    }
+
+    .project-card {
+      flex: 0 0 calc(33.333% - 16px);
+      border: 1px solid var(--hairline);
+      background: var(--canvas);
+      display: block;
+      transition: border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .carousel-btn {
+      background: var(--canvas);
+      border: 1px solid var(--color-primary);
+      color: var(--color-primary);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .carousel-btn:hover:not(:disabled) {
+      background: var(--color-primary);
+      color: var(--on-primary);
+    }
+    
+    .carousel-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .project-card:hover {
+      border-color: var(--color-primary);
+      background: var(--surface-1);
+    }
+
+    .project-card .thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .project-card .info {
+      padding: var(--space-lg);
+    }
+
+    .project-card .tag {
+      font-size: 12px;
+      letter-spacing: 0.32px;
+      color: var(--color-primary);
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .project-card h3 {
+      font-size: 18px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    .project-card p {
+      font-size: 14px;
+      color: var(--ink-muted);
+    }
+
+    .projects-footer {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    /* =========================================================
+     PROCESS STEPS
+     ========================================================= */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .step {
+      border-top: 3px solid var(--color-accent);
+      padding-top: 20px;
+    }
+
+    .step .step-num {
+      font-size: 14px;
+      color: var(--ink-subtle);
+      margin-bottom: 8px;
+      font-family: monospace;
+    }
+
+    .step h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.43;
+    }
+
+    /* =========================================================
+     CTA BANNER — full-width navy, per DESIGN.md cta-banner token
+     ========================================================= */
+    .cta-banner {
+      background: var(--color-primary);
+      color: var(--on-primary);
+      padding: var(--space-xxl) 32px;
+      text-align: center;
+    }
+
+    .cta-banner h2 {
+      margin-bottom: 12px;
+    }
+
+    .cta-banner p {
+      color: var(--inverse-ink-muted);
+      margin-bottom: 28px;
+    }
+
+    /* =========================================================
+     TESTIMONIAL
+     ========================================================= */
+    .testimonial {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonial blockquote {
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--color-primary);
+      margin-bottom: 24px;
+    }
+
+    .testimonial cite {
+      font-size: 14px;
+      color: var(--ink-muted);
+      font-style: normal;
+      letter-spacing: 0.16px;
+    }
+
+    /* =========================================================
+     FOOTER
+     ========================================================= */
+    footer {
+      background: var(--inverse-canvas);
+      color: var(--inverse-ink-muted);
+      padding: 64px 0 32px;
+      border-top: 1px solid var(--inverse-surface-1);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    .footer-grid h5 {
+      color: var(--inverse-ink);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      letter-spacing: 0.16px;
+    }
+
+    .footer-grid a {
+      display: block;
+      font-size: 14px;
+      color: var(--inverse-ink-muted);
+      margin-bottom: 10px;
+      transition: color 0.2s ease;
+    }
+
+    .footer-grid a:hover {
+      color: var(--color-accent);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--inverse-surface-1);
+      padding-top: 24px;
+      font-size: 13px;
+      color: var(--inverse-ink-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Responsive collapse */
+    @media (max-width: 900px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-card {
+        flex: 0 0 calc(50% - 12px);
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      nav.links {
+        display: none;
+      }
+
+      .nav-inner {
+        flex-wrap: nowrap;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 96px 0 80px;
+      }
+
+      .project-card {
+        flex: 0 0 100%;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .hero-stats {
+        gap: 20px;
+        flex-direction: column;
+      }
+
+      .display-xl {
+        font-size: clamp(30px, 9vw, 46px);
+      }
+
+      .logo-mark img {
+        height: 32px;
+      }
+
+      .wrap {
+        padding: 0 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============ UTILITY BAR ============ -->
+  <div class="utility-bar">
+    <div class="wrap utility-inner">
+      <span>Serving Tuguegarao City, Cagayan &amp; Surrounding Areas</span>
+      <span>
+        Call: <a href="tel:09499020550">09499020550</a> | Email: <a
+          href="mailto:htuazonjr@yahoo.com">htuazonjr@yahoo.com</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="top-nav">
+    <div class="wrap nav-inner">
+      <a href="index.html" class="logo-mark">
+        <img src="resources/images/logo-removebg.png" alt="Solar Solutions Pro">
+      </a>
+      <nav class="links">
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#process">How it works</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#contact" class="btn btn-primary">Get a free quote</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+      <source src="resources/videos/herosection_bg.mp4" type="video/mp4">
+    </video>
+    <div class="wrap hero-inner">
+      <span class="eyebrow">Residential &amp; commercial solar</span>
+      <h1 class="display-xl">Power your home with the sun</h1>
+      <p class="body-lg">Free assessment, professional installation, and ongoing monitoring — Solar Solutions Pro
+        handles every step of going solar, so you just watch the savings add up.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Get a free quote</a>
+        <a href="#process" class="btn btn-tertiary">See how it
+          works</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">1xx+</div>
+          <div class="stat-label">Homes powered</div>
+        </div>
+        <div>
+          <div class="stat-num">1x Years</div>
+          <div class="stat-label">Warranty coverage</div>
+        </div>
+        <div>
+          <div class="stat-num">95%</div>
+          <div class="stat-label">Avg. bill reduction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SERVICES ============ -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Why Solar Solutions Pro</span>
+        <h2 class="display-md">Energy independence, without the guesswork</h2>
+        <p class="subhead">From first assessment to final inspection, we manage the entire process in-house.</p>
+      </div>
+      <div class="card-grid">
+        <div class="feature-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"
+                stroke-linecap="round" />
+            </svg></div>
+          <h3 class="card-title">Free site assessment</h3>
+          <p>We evaluate your roof, sun exposure, and energy usage to design a system sized right for your home.</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></div>
+          <h3 class="card-title">Professional installation</h3>
+          <p>Licensed, insured crews install your system with minimal disruption — most homes take just a day or two.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 12l4-4 4 4 4-8 6 6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg></div>
+          <h3 class="card-title">Ongoing monitoring</h3>
+          <p>Track your production and savings in real time, with support whenever you need it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section-surface">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Our work</span>
+        <h2 class="display-md">Recent installations</h2>
+        <p class="subhead">Real homes, real systems, real results — see the full photo documentation for each project.
+        </p>
+      </div>
+      <div class="carousel-container" id="projectCarousel">
+        <div class="carousel-track" id="projectTrack">
+          <a class="project-card" href="projects/reyes-residence.html">
+            <img class="thumb" loading="lazy" src="resources/images/resources/1c6c8225-c96d-4435-b629-89f7a13a0124.jpg"
+              alt="Finished rooftop solar installation at the Reyes Residence">
+            <div class="info">
+              <span class="tag">Residential · Phoenix, AZ</span>
+              <h3>Reyes Residence</h3>
+              <p>8.4kW system · Installed November 2025</p>
+            </div>
+          </a>
+          <a class="project-card" href="projects/sterling-home.html">
+            <img class="thumb" loading="lazy" src="resources/images/resources/629852f7-bdb6-46c8-b6c9-aead99bad607.jpg"
+              alt="Finished rooftop solar installation at the Sterling Home">
+            <div class="info">
+              <span class="tag">Residential · San Diego, CA</span>
+              <h3>Sterling Home</h3>
+              <p>12.2kW system · Installed January 2026</p>
+            </div>
+          </a>
+          <a class="project-card" href="projects/harper-ranch.html">
+            <img class="thumb" loading="lazy" src="resources/images/resources/079183e8-63c4-43bd-b1a9-daff988d201a.jpg"
+              alt="Finished rooftop solar installation at the Harper Ranch">
+            <div class="info">
+              <span class="tag">Residential · Austin, TX</span>
+              <h3>Harper Ranch</h3>
+              <p>15.5kW system · Installed March 2026</p>
+            </div>
+          </a>
+        </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevBtn" aria-label="Previous project">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="carousel-btn" id="nextBtn" aria-label="Next project">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESS ============ -->
+  <section id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2 class="display-md">Four steps to going solar</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <h4>Free consultation</h4>
+          <p>We review your energy bills and roof to see if solar makes sense for you.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <h4>Custom design</h4>
+          <p>We design a system sized to your usage and roof layout.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <h4>Installation</h4>
+          <p>Our licensed crew installs your system, usually within a day or two.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <h4>Power on</h4>
+          <p>Your system is inspected, activated, and monitored from day one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA BANNER ============ -->
+  <div class="cta-banner">
+    <h2 class="headline">Ready to see what solar could save you?</h2>
+    <p>Get a free, no-obligation assessment for your home.</p>
+    <a href="#contact" class="btn btn-primary">Get your free quote</a>
+  </div>
+
+  <!-- ============ TESTIMONIAL ============ -->
+  <section id="testimonials">
+    <div class="wrap testimonial">
+      <blockquote>"The entire process was seamless. From the digital design model of our roof to the final power-on, Solar
+        Solutions Pro delivered exactly what they promised. Our monthly electric bill dropped from $280 to under $15."
+      </blockquote>
+      <cite>— Sarah &amp; David Reyes, Phoenix, AZ</cite>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT / FOOTER ============ -->
+  <footer id="contact">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <h5>Solar Solutions Pro</h5>
+          <p style="font-size:14px; max-width:280px; color:var(--inverse-ink-muted);">
+            Clean energy, engineered for your roof. Serving Tuguegarao City, Cagayan and surrounding regions.
+          </p>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <a href="#services">Services</a>
+          <a href="#process">Process</a>
+          <a href="#testimonials">Reviews</a>
+        </div>
+        <div>
+          <h5>Contact</h5>
+          <span style="display: block; font-size: 14px; color: var(--inverse-ink-muted); margin-bottom: 10px;">
+            Tuguegarao City, Cagayan<br>Philippines
+          </span>
+          <a href="tel:09499020550">09499020550</a>
+          <a href="mailto:htuazonjr@yahoo.com">htuazonjr@yahoo.com</a>
+        </div>
+        <div>
+          <h5>Follow</h5>
+          <a href="https://www.facebook.com/solarsolutionsproph">Facebook</a>
+          <a href="https://www.instagram.com/solarsolutions_pro/">Instagram</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Solar Solutions Pro. All rights reserved.</span>
+        <span>Built with care.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('projectTrack');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      let currentIndex = 0;
+      
+      function updateCarousel() {
+        if (!track) return;
+        const cards = track.querySelectorAll('.project-card');
+        if (cards.length === 0) return;
+        
+        const trackWidth = track.parentElement.clientWidth;
+        const cardWidth = cards[0].clientWidth;
+        const gap = 24; // matches our CSS gap
+        
+        // Items per view: 1 on mobile, 2 on tablet, 3 on larger screens
+        const itemsPerView = Math.round(trackWidth / (cardWidth + gap)) || 1;
+        const maxIndex = Math.max(0, cards.length - itemsPerView);
+        
+        currentIndex = Math.max(0, Math.min(currentIndex, maxIndex));
+        
+        const moveAmount = currentIndex * (cardWidth + gap);
+        track.style.transform = `translateX(-${moveAmount}px)`;
+        
+        if(prevBtn) prevBtn.disabled = currentIndex === 0;
+        if(nextBtn) nextBtn.disabled = currentIndex >= maxIndex;
+      }
+      
+      if(nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          currentIndex++;
+          updateCarousel();
+        });
+      }
+      
+      if(prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          currentIndex--;
+          updateCarousel();
+        });
+      }
+      
+      window.addEventListener('resize', updateCarousel);
+      // Wait for layout to be completely ready
+      setTimeout(updateCarousel, 50);
+    });
+  </script>
+</body>
+
+</html>
